@@ -1,0 +1,519 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Private Cloud</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+    let waveCircles = [];
+    function createWave(x, y) {
+        const wave = document.createElement('div');
+        wave.className = 'wave';
+        wave.style.left = `${x - 75}px`;  // Adjust wave center based on larger size
+        wave.style.top = `${y - 75}px`;   // Adjust wave center based on larger size
+
+        // Neutral wave color (transparent background)
+        wave.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+
+        // Append wave to body and animate it
+        document.body.appendChild(wave);
+        waveCircles.push(wave);
+
+        // Animate wave expansion with smoothness and larger size
+        wave.animate(
+            [
+                { transform: 'scale(0)', opacity: 0.4 },
+                { transform: 'scale(1)', opacity: 0 }  // Larger wave size for smoother animation
+            ],
+            {
+                duration: 600,  // Slightly longer duration for smoother effect
+                easing: 'ease-out',
+                fill: 'forwards'
+            }
+        );
+
+        // Clean up after animation
+        setTimeout(() => {
+            wave.remove();
+            waveCircles = waveCircles.filter(w => w !== wave);
+        }, 600);
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        createWave(e.clientX, e.clientY);
+    });
+</script>
+
+<style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+                height: 100vh;
+                overflow-y: auto;
+                overflow-x: hidden;
+                color: white;
+            }
+            canvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+            .folder-link, .file-link {
+                font-weight: bold;
+                cursor: pointer;
+                color: #f9d423;
+                transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, font-size 0.3s ease; /* Smooth transitions */
+                display: inline-block;
+                font-size: 18px; /* Increased text size */
+            }
+
+            /* Hover effect to slightly increase text size and add 3D effect */
+            .folder-link:hover, .file-link:hover {
+                transform: perspective(600px) translateY(-5px) rotateX(10deg) rotateY(5deg); /* 3D effect */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+                color: #32CD32; /* New hover color */
+                font-size: 20px;  /* Slightly larger text on hover */
+            }
+
+            /* Smooth folder dropdown appearance */
+            .nested {
+                display: none;
+                padding-left: 20px;
+                transition: all 0.5s ease-in-out; /* Smooth opening and closing */
+            }
+
+            .nested.show {
+                display: block;
+                transition: all 0.5s ease-in-out; /* Smooth opening and closing */
+            }
+
+            .folder-link:hover + .nested, .file-link:hover + .nested {
+                display: block;
+            }
+
+            .content {
+                padding: 20px;
+            }
+            .wave {
+                position: absolute;
+                width: 150px;  /* Increased wave size to 150px */
+                height: 150px; /* Increased wave size to 150px */
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.2);  /* Neutral wave color */
+                pointer-events: none;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="background"></canvas>
+        <div class="content">
+            <h2 class="text-center mb-4">PRIVATE CLOUD WITH LINKS</h2>
+            <ul class="list-group">
+    
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('root')">root</span>
+                <ul id="root" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('UI TEST')">UI TEST</span>
+                <ul id="UI TEST" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('app.py')"><a href="https://mega.co.nz/#!LZsXVYDL!JY7HyQAigov5NymoprOoqRcf9jAAXS0fguJJMxxpk-w" class="file-link" target="_blank">app.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('FINAL_SINGLE_SERVER.py')"><a href="https://mega.co.nz/#!7ENFATwL!nfGIqA17F0hVZUbwP15e1vf6A_Y8PhJlABz7Gud7wjA" class="file-link" target="_blank">FINAL_SINGLE_SERVER.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('mega_credentials.json')"><a href="https://mega.co.nz/#!qNlFhbaC!elLk6Pcign3aSzTSdghBk8lcqbgggKDUQ2ZYW4foeS8" class="file-link" target="_blank">mega_credentials.json</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER.txt')"><a href="https://mega.co.nz/#!TMFxHJIT!0--LvT9tklEaSWF6HV_hrIln6VZAzk-zUa8K_4W1Eu4" class="file-link" target="_blank">SERVER.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS.txt')"><a href="https://mega.co.nz/#!3IsizAJI!G0Gs6TFNJ30aVGJoPI8LZ7-k2_XdD10ZV6C1zYl60gU" class="file-link" target="_blank">SERVER_PATHS.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS_DOWNLOAD.txt')"><a href="https://mega.co.nz/#!eIlykZBY!CaqLti-EA7XD6zU-6Nalkjll_wuL_9UW2yY1DfRY_sA" class="file-link" target="_blank">SERVER_PATHS_DOWNLOAD.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('New folder')">New folder</span>
+                <ul id="New folder" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('FINAL_SINGLE_SERVER.py')"><a href="https://mega.co.nz/#!HcMSyLBK!R5N-OAioOhmFX3hIM-3Enzkq6td5AJLaGQhRjUG4QNE" class="file-link" target="_blank">FINAL_SINGLE_SERVER.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('mega_credentials.json')"><a href="https://mega.co.nz/#!fcFSlDJL!XD5n58qv0UErX638QHLNrsi1x6Ha1ZzVfpZU4jOL3dI" class="file-link" target="_blank">mega_credentials.json</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('output.html')"><a href="https://mega.co.nz/#!CVciVLpD!JljtUNlCy6a9A-4-zyD6156RoELbZWbDsf7SHZQ6_14" class="file-link" target="_blank">output.html</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER.txt')"><a href="https://mega.co.nz/#!HE1FgQgA!rigL6BhVOH12_IxjRX1P-iLhRK-EUd1BYryW0nUsgs8" class="file-link" target="_blank">SERVER.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('server_html_creater.py')"><a href="https://mega.co.nz/#!XJUGiZqZ!t2QyD-Dh5yW9beZN_pa5xmeNtGjBYDmfelBvfykb3to" class="file-link" target="_blank">server_html_creater.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS.txt')"><a href="https://mega.co.nz/#!2I8gRDDZ!-DwFYDNvP09M1JJIZr2n8Nl8gpRxStA-lXIFrarnpv0" class="file-link" target="_blank">SERVER_PATHS.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS_DOWNLOAD.txt')"><a href="https://mega.co.nz/#!uNdURbpS!DV2-n3HrurlIUDJlGHkW9gCLr0oYueHooBSaG14DRig" class="file-link" target="_blank">SERVER_PATHS_DOWNLOAD.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('tempCodeRunnerFile.py')"><a href="https://mega.co.nz/#!CQ9RmZwI!Fg0UAqgqqrwDTkH8K8QXLcWbky-xemIWfeDKQnTXvOI" class="file-link" target="_blank">tempCodeRunnerFile.py</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('templates')">templates</span>
+                <ul id="templates" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('display_paths.html')"><a href="https://mega.co.nz/#!OdVlnLpS!BGsBFSWH9B93ajk-ThJRMtgYHi2TuEE40_J3j5gnxac" class="file-link" target="_blank">display_paths.html</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('uploads')">uploads</span>
+                <ul id="uploads" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('Colab Notebooks-20241224T014038Z-001.zip')"><a href="https://mega.co.nz/#!OMtXXByL!AXW9wx0rHLBAV4GWsKYADzksjScJCAIbVjSjXR-oYqo" class="file-link" target="_blank">Colab Notebooks-20241224T014038Z-001.zip</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('manifest.mpd')"><a href="https://mega.co.nz/#!yNtQhIwT!Ul0XNcLDMLwjpYHFQvD9GQDKODfdRqVu1IAuqjcddw4" class="file-link" target="_blank">manifest.mpd</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('new_mega_account.py')"><a href="https://mega.co.nz/#!qRFASRAb!4eK75HhNLQA65WJIgRNGpKtl9FIoIwjzmSfUjx1dPLo" class="file-link" target="_blank">new_mega_account.py</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('hello')">hello</span>
+                <ul id="hello" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('chepu')">chepu</span>
+                <ul id="chepu" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('tinava')">tinava</span>
+                <ul id="tinava" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('MEGA')">MEGA</span>
+                <ul id="MEGA" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('create.py')"><a href="https://mega.co.nz/#!CY9FwbrQ!z6w6k-MKulg3mIhToaF9g2H2WmWynmlzMXn4JdyMz3E" class="file-link" target="_blank">create.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('emails.txt')"><a href="https://mega.co.nz/#!bA9nDCzS!h8HNhNGNDRnVWriy24XDdFdtYiXp3yi5kmt1JkZOi2Q" class="file-link" target="_blank">emails.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('jsoncreate.py')"><a href="https://mega.co.nz/#!PYUQzQrC!eneTfZyDlBpndB2H4abPsq866Wp0yH5x2RQ7MzCcaZc" class="file-link" target="_blank">jsoncreate.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('MAIN.py')"><a href="https://mega.co.nz/#!mMMRAIBT!OOH20T7wDX-pLcuSRe4zAqXsg-2F4k2p0Z-Q7wan4LQ" class="file-link" target="_blank">MAIN.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('mega_credentials.json')"><a href="https://mega.co.nz/#!LBEEBJYI!wrSgLBcveyLCOKlcjNw6sVhgnw8JKroqQcAt5V_Ll0g" class="file-link" target="_blank">mega_credentials.json</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('tempCodeRunnerFile.python')"><a href="https://mega.co.nz/#!uFtgDJjI!PFes7tp-9rJ7NFstdDEUlXG6jB0T3uC8eMN4QwG1r0c" class="file-link" target="_blank">tempCodeRunnerFile.python</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('MEGA PRIVATE SERVER')">MEGA PRIVATE SERVER</span>
+                <ul id="MEGA PRIVATE SERVER" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('FINAL_SINGLE_SERVER.py')"><a href="https://mega.co.nz/#!LZl2GRbZ!0L25BdLYrim60Gt1m-HtLlmQbt1i88-lVhohAXsUuZg" class="file-link" target="_blank">FINAL_SINGLE_SERVER.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('mega_credentials.json')"><a href="https://mega.co.nz/#!zV0hQZZK!AaT0Xpm4Z9mHP5X4nUDcNXLzncReuh2WOxrg6SOmbLw" class="file-link" target="_blank">mega_credentials.json</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('output.html')"><a href="https://mega.co.nz/#!bAExyTSR!v6UMbMMvMrgqL55nP5sRuqKcFLaSQzrBlHjIv6zNtRs" class="file-link" target="_blank">output.html</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER.txt')"><a href="https://mega.co.nz/#!3NtVgbZY!yHlMSQyEnFKOLyhkrVXgCV0QdrHW2quXKjSzK8XjOjM" class="file-link" target="_blank">SERVER.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('server_html_creater.py')"><a href="https://mega.co.nz/#!TQE1iLqD!U3drZRqeBokNqUbsYOxqpnRd9EdLVlBNAxflvjzNvzk" class="file-link" target="_blank">server_html_creater.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS.txt')"><a href="https://mega.co.nz/#!HclBjAIR!SDNMjFSjkfsuPVNXj_LtDfF2RD9OxPaw7XVISYkqTCo" class="file-link" target="_blank">SERVER_PATHS.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS_DOWNLOAD.txt')"><a href="https://mega.co.nz/#!rZl1hLZR!TA-qZ-npgvmlVEP_Sh6K0B9CdAUPoYxVvTDNFrP8rTA" class="file-link" target="_blank">SERVER_PATHS_DOWNLOAD.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('WATCHDOG.py')"><a href="https://mega.co.nz/#!WAsVna5I!aLkEahDvlpZdOAuDHRc0VC742TnJYfyQMSvjRYNo9e4" class="file-link" target="_blank">WATCHDOG.py</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER')">SERVER</span>
+                <ul id="SERVER" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('FINAL_SINGLE_SERVER.py')"><a href="https://mega.co.nz/#!OJ8xyKRT!MfXci4OjlqU3NZIzZOhk0Hn4FnCtfPdjffKetIoV4N0" class="file-link" target="_blank">FINAL_SINGLE_SERVER.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('FUNCTIONS.py')"><a href="https://mega.co.nz/#!rYNRGRhC!7z1y4FehcyaXe6fC3g7r0OuGgLvpHmsZCeQK1khexMc" class="file-link" target="_blank">FUNCTIONS.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('manifest.mpd')"><a href="https://mega.co.nz/#!LQNHxJIJ!xCKdGpvP1LbvnFxOeIHiQIm6oY5IQFUUSBgMCzJo5aI" class="file-link" target="_blank">manifest.mpd</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('mega_credentials.json')"><a href="https://mega.co.nz/#!iNtgWbYT!YrCGBz3f8_sYJLZ6yfXJx39qxFQyO44JJK2eeOEc_vI" class="file-link" target="_blank">mega_credentials.json</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER.py')"><a href="https://mega.co.nz/#!id01UBRK!Fr4PHiqBN0XcDMYcVHLekGUfDrO9aH51sUgv7Rxy6Z8" class="file-link" target="_blank">SERVER.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER.txt')"><a href="https://mega.co.nz/#!DB1GFY7C!7O4RQyrdBDC-qYFLxqNAxoU4iJkRWAUGkmLP03EDAI0" class="file-link" target="_blank">SERVER.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('UI TEST')">UI TEST</span>
+                <ul id="UI TEST" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('app.py')"><a href="https://mega.co.nz/#!XckTTAyD!WlYDfZmQN8XaNxsn9EEnASaGGgCSHuT4AGzezbVSXxg" class="file-link" target="_blank">app.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('FINAL_SINGLE_SERVER.py')"><a href="https://mega.co.nz/#!uMU3TQJK!9pRdagE7C1v6gotrDtCrqMqru1AX3kKBtXocNlvfg3k" class="file-link" target="_blank">FINAL_SINGLE_SERVER.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('mega_credentials.json')"><a href="https://mega.co.nz/#!fUVW0Aib!DkrEs2mxr6CJfpJXJCMn23VhRGQ0dsZcucS_17cEiqM" class="file-link" target="_blank">mega_credentials.json</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER.txt')"><a href="https://mega.co.nz/#!vMVQgIQJ!rfUWDvGPFgn-cDo7VYgd2X6CsyCvgPet2wOhyBdruqU" class="file-link" target="_blank">SERVER.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS.txt')"><a href="https://mega.co.nz/#!nd8EBJIR!K38Jk9H-Qmd8r49Y23mmbrCBRVZ029N_R8v7_sa_Zic" class="file-link" target="_blank">SERVER_PATHS.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS_DOWNLOAD.txt')"><a href="https://mega.co.nz/#!rBkFGCjI!Tw5Lctk3NF1kHaPT2X9AFXzpWyRFLUvvjZcXjswDIhk" class="file-link" target="_blank">SERVER_PATHS_DOWNLOAD.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('New folder')">New folder</span>
+                <ul id="New folder" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('FINAL_SINGLE_SERVER.py')"><a href="https://mega.co.nz/#!OA102KgR!sU1P95D5aSocFCHfsnPZGgy799bB8LQ_KNFKbSxtnwM" class="file-link" target="_blank">FINAL_SINGLE_SERVER.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('mega_credentials.json')"><a href="https://mega.co.nz/#!eFtUjCKI!Vh_BiPeNnl4CDPn5EFPoqywRqWpqjNBDFWXjUZrvD7k" class="file-link" target="_blank">mega_credentials.json</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('output.html')"><a href="https://mega.co.nz/#!TF1AVQDB!xdC0uS8GmfwoA8EkPXefHupzw9-uI8k_qPeG7TYfJk8" class="file-link" target="_blank">output.html</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER.txt')"><a href="https://mega.co.nz/#!bZ1xXZAZ!_X0A9VRHjbVMqAdAuAn-Ct-K7OKlwsQ1CxXsH9cLPDU" class="file-link" target="_blank">SERVER.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('server_html_creater.py')"><a href="https://mega.co.nz/#!uANwFRSL!N2kzA6EsB3wlf0EKP8EHN1blhAFYUvv7wI2Q4W09DGg" class="file-link" target="_blank">server_html_creater.py</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS.txt')"><a href="https://mega.co.nz/#!fQVSAYoD!TiOi2V_d7ZJjx6Ob5kDjMMqIKpuF6QnRn1LBlgYINw8" class="file-link" target="_blank">SERVER_PATHS.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('SERVER_PATHS_DOWNLOAD.txt')"><a href="https://mega.co.nz/#!DElGHCxY!DSI9tI9gOSYGVxvShsLjcAkyR0JfpkGaSODWbgDlFjQ" class="file-link" target="_blank">SERVER_PATHS_DOWNLOAD.txt</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('tempCodeRunnerFile.py')"><a href="https://mega.co.nz/#!OQV0SBJC!VG8eMkKJxSXFq88Yn6UrpJB5X-E-ohP07aGWxYfkkE4" class="file-link" target="_blank">tempCodeRunnerFile.py</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('templates')">templates</span>
+                <ul id="templates" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('display_paths.html')"><a href="https://mega.co.nz/#!uVdFjQaB!z3RVzCGQJpp_NkI3CV07vJ863ZvtFUMP2YHzHYV-OvQ" class="file-link" target="_blank">display_paths.html</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('uploads')">uploads</span>
+                <ul id="uploads" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('Colab Notebooks-20241224T014038Z-001.zip')"><a href="https://mega.co.nz/#!DY0jxa7Z!NzPHZ1Dojeik-xNZyps0xo0fTG--HHFfUj4yFiqEAhQ" class="file-link" target="_blank">Colab Notebooks-20241224T014038Z-001.zip</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('manifest.mpd')"><a href="https://mega.co.nz/#!eEkCgKqJ!nefnFeecLDifFyc7DzJhdSc_cnmjNEcHD60UXRxyJSY" class="file-link" target="_blank">manifest.mpd</a></span>
+                
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('new_mega_account.py')"><a href="https://mega.co.nz/#!3E1gmRTC!6S25X_qCmFMzY1xo13Cj0gjYe0uTYcK7dnkj4R7JmvQ" class="file-link" target="_blank">new_mega_account.py</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('__pycache__')">__pycache__</span>
+                <ul id="__pycache__" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('FUNCTIONS.cpython-312.pyc')"><a href="https://mega.co.nz/#!iMcT2SKI!nKVnRPst0_38dUexUrRlN1y7P0GGEDk2LZtaYrIOmP8" class="file-link" target="_blank">FUNCTIONS.cpython-312.pyc</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('__pycache__')">__pycache__</span>
+                <ul id="__pycache__" class="nested">
+            <li class="list-group-item">
+                <span class="folder-link" onclick="toggleNested('json.cpython-312.pyc')"><a href="https://mega.co.nz/#!DYNkiT7L!YyLAYd-AB6GBbiVah6m-o-LeC04khbqtY8EtphXq1ZU" class="file-link" target="_blank">json.cpython-312.pyc</a></span>
+                
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            
+            </ul>
+        </div>
+
+        <script>
+            let openFolders = new Set();
+
+            function toggleNested(folder) {
+                const element = document.getElementById(folder);
+                const isVisible = element.classList.contains('show');
+                
+                // Toggle the visibility of subfolders
+                element.classList.toggle('show');
+                
+                // If the folder is opened by click, add it to the openFolders set
+                if (!isVisible) {
+                    openFolders.add(folder);
+                } else {
+                    openFolders.delete(folder);
+                }
+            }
+        </script>
+    </body>
+    </html>
+    
